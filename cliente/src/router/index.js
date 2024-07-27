@@ -2,8 +2,14 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import Login from '@/views/Login.vue'
 import HomeAdministrador from '../components/administrador/Home.vue'
-import HomeUsuario from '../components/usuario/Home.vue'
+import HomeDirector from '../components/director/Home.vue'
+import HomeEstudiante from '../components/estudiante/Home.vue'
+import HomeProfesor from '../components/profesor/Home.vue'
 import Usuarios from '@/components/administrador/usuarios/Usuarios.vue'
+import Profesores from '@/components/director/profesor/Profesores.vue'
+import Curso from '@/components/director/curso/Curso.vue'
+import Estudiantes from '@/components/profesor/estudiante/Estudiantes.vue'
+import DatosEstudiante from '@/components/profesor/estudiante/DatosEstudiante.vue'
 
 const routes = [
   {
@@ -46,10 +52,46 @@ const routes = [
     ],
   },
   {
-    path: '/usuario',
-    name: 'usuario',
-    component: HomeUsuario,
-    meta: { roles: ['Usuario'] },
+    path: '/director',
+    name: 'director',
+    component: HomeDirector,
+    meta: { roles: ['Director'] },
+    children: [
+      {
+        path: 'profesores',
+        component: Profesores,
+        meta: { roles: ['Director'] },
+      },
+      {
+        path: 'curso',
+        component: Curso,
+        meta: { roles: ['Director'] },
+      },
+    ],
+  },
+  {
+    path: '/profesor',
+    name: 'profesor',
+    component: HomeProfesor,
+    meta: { roles: ['Profesor'] },
+    children: [
+      {
+        path: 'estudiantes',
+        component: Estudiantes,
+        meta: { roles: ['Profesor'] },
+      },
+      {
+        path: 'perfil-estudiante/:id',
+        component: DatosEstudiante,
+        meta: { roles: ['Profesor'] },
+      },
+    ],
+  },
+  {
+    path: '/estudiante',
+    name: 'estudiante',
+    component: HomeEstudiante,
+    meta: { roles: ['Estudiante'] },
   },
   {
     path: '/:pathMatch(.*)*',

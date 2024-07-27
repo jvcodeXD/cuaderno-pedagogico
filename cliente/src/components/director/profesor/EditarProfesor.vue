@@ -12,7 +12,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5">Editar usuario</h1>
+            <h1 class="modal-title fs-5">Editar profesor</h1>
             <button
               type="button"
               class="btn-close"
@@ -28,7 +28,7 @@
                 </label>
                 <input
                   type="text"
-                  v-model="usuario.nombre"
+                  v-model="profesor.nombre"
                   class="form-control"
                   :id="'nombre' + id"
                   placeholder="Ingrese nombre completo"
@@ -40,7 +40,7 @@
                     <label for="ci" class="col-form-label"> CI </label>
                     <input
                       type="text"
-                      v-model="usuario.ci"
+                      v-model="profesor.ci"
                       class="form-control"
                       :id="'ci' + id"
                       placeholder="Ingrese CI"
@@ -52,7 +52,7 @@
                     </label>
                     <input
                       type="text"
-                      v-model="usuario.telefono"
+                      v-model="profesor.telefono"
                       class="form-control"
                       :id="'telefono' + id"
                       placeholder="Ingrese telefono"
@@ -66,7 +66,7 @@
                 </label>
                 <input
                   type="text"
-                  v-model="usuario.direccion"
+                  v-model="profesor.direccion"
                   class="form-control"
                   :id="'direccion' + id"
                   placeholder="Ingrese direccion"
@@ -83,7 +83,7 @@
                     </label>
                     <input
                       type="date"
-                      v-model="usuario.fecha_nacimiento"
+                      v-model="profesor.fecha_nacimiento"
                       class="form-control"
                       :id="'fecha_nacimiento' + id"
                     />
@@ -93,7 +93,7 @@
                       Rol
                     </label>
                     <select
-                      v-model="usuario.rol"
+                      v-model="profesor.rol"
                       class="form-control"
                       :id="'rol' + id"
                     >
@@ -111,14 +111,14 @@
                 <div class="row">
                   <div class="col-6">
                     <label :for="'user' + id" class="col-form-label">
-                      Usuario
+                      Profesor
                     </label>
                     <input
                       type="text"
-                      v-model="usuario.user"
+                      v-model="profesor.user"
                       class="form-control"
                       :id="'user' + id"
-                      placeholder="Ingrese usuario"
+                      placeholder="Ingrese profesor"
                     />
                   </div>
                   <div class="col-6">
@@ -128,7 +128,7 @@
                     <div class="input-group">
                       <input
                         :type="mostrarContrasena ? 'text' : 'password'"
-                        v-model="usuario.pass"
+                        v-model="profesor.pass"
                         class="form-control"
                         :id="'pass' + id"
                         placeholder="Ingrese contraseña"
@@ -160,7 +160,7 @@
             <button
               type="button"
               class="btn btn-primary"
-              v-on:click="crearUsuario"
+              v-on:click="crearProfesor"
             >
               Guardar
             </button>
@@ -172,7 +172,7 @@
 </template>
 <script>
 export default {
-  name: 'EditarUsuario',
+  name: 'EditarProfesor',
   props: {
     id: {
       type: Number,
@@ -181,7 +181,7 @@ export default {
   },
   data() {
     return {
-      usuario: {
+      profesor: {
         nombre: null,
         ci: null,
         telefono: null,
@@ -191,15 +191,15 @@ export default {
         user: null,
         pass: null,
       },
-      nameModal: `editarUsuario${this.id}`,
-      roles: ['Administrador', 'Director', 'Profesor', 'Estudiante'],
+      nameModal: `editarProfesor${this.id}`,
+      roles: ['Profesor'],
       mostrarContrasena: false,
     }
   },
   methods: {
-    async crearUsuario() {
+    async crearProfesor() {
       await this.$axios
-        .put(`usuarios/${this.id}`, this.usuario)
+        .put(`director/profesores/${this.id}`, this.profesor)
         .then(() => {
           window.location.reload()
         })
@@ -211,12 +211,12 @@ export default {
   },
   async beforeMount() {
     await this.$axios
-      .get(`usuarios/${this.id}`)
+      .get(`director/profesores/${this.id}`)
       .then((res) => {
         const dato = res.data[0]
         const { nombre, ci, telefono, direccion, fecha_nacimiento, rol, user } =
           dato
-        this.usuario = {
+        this.profesor = {
           nombre,
           ci,
           telefono,

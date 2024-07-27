@@ -15,6 +15,8 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <AdminNavigation v-if="usuario?.rol === 'Administrador'" />
+        <DirectorNavigation v-if="usuario?.rol === 'Director'" />
+        <ProfesorNavigation v-if="usuario?.rol === 'Profesor'" />
         <div v-if="usuario" class="d-flex align-items-center">
           <span class="mx-2">
             <i class="fa-solid fa-user"></i> {{ usuario.rol }}
@@ -34,6 +36,8 @@
 </template>
 <script>
 import AdminNavigation from '../components/administrador/Navigation.vue'
+import DirectorNavigation from '../components/director/Navigation.vue'
+import ProfesorNavigation from '../components/profesor/Navigation.vue'
 export default {
   data() {
     return {
@@ -49,6 +53,8 @@ export default {
   },
   components: {
     AdminNavigation,
+    DirectorNavigation,
+    ProfesorNavigation,
   },
   mounted() {
     const usuarioData = localStorage.getItem('usuario')

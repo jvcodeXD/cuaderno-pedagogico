@@ -17,11 +17,11 @@ CREATE TABLE usuario (
 );
 
 CREATE TABLE curso (
-  id VARCHAR(255) PRIMARY KEY,
+  id INT AUTO_INCREMENT PRIMARY KEY,
   grado VARCHAR(255),
   paralelo VARCHAR(255),
-  id_usuario VARCHAR(255),
-  FOREIGN KEY (id_usuario) REFERENCES usuario(id)
+  id_profesor INT,
+  FOREIGN KEY (id_profesor) REFERENCES usuario(id)
 );
 
 CREATE TABLE materia (

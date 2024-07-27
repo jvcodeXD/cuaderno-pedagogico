@@ -168,7 +168,7 @@ export default {
         nombre: null,
         ci: null,
         telefono: null,
-        direcion: null,
+        direccion: null,
         fecha_nacimiento: null,
         rol: '',
         user: null,
@@ -180,22 +180,8 @@ export default {
   },
   methods: {
     async crearUsuario() {
-      const formData = new FormData()
-      Object.keys(this.usuario).forEach((key) => {
-        if (this.usuario[key] !== null && this.usuario[key] !== undefined) {
-          formData.append(key, this.usuario[key])
-        }
-      })
-      const fileInput = this.$refs.fileInput
-      if (fileInput.files.length > 0) {
-        formData.append('file', fileInput.files[0])
-      }
       await this.$axios
-        .post('usuarios', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        })
+        .post('usuarios', this.usuario)
         .then(() => {
           window.location.reload()
         })
