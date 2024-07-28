@@ -8,6 +8,7 @@ const directorRouter = require('./director')
 const profesorRouter = require('./profesor')
 // const estudianteRouter = require('./estudiante')
 const cursoRouter = require('./curso')
+const materiaRouter = require('./materia')
 
 const router = express.Router()
 
@@ -22,5 +23,6 @@ router.use('/director', directorRouter)
 router.use('/profesor', profesorRouter)
 // router.use('/estudiante', estudianteRouter)
 router.use('/cursos', cursoRouter)
+router.use('/materias', materiaRouter)
 
 module.exports = router

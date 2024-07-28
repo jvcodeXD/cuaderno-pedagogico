@@ -228,7 +228,6 @@ export default {
   },
   async beforeMount() {
     await this.obtenerCursos()
-    console.log(this.id_profesor)
   },
 }
 </script>

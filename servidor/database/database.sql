@@ -25,16 +25,18 @@ CREATE TABLE curso (
 );
 
 CREATE TABLE materia (
-  id VARCHAR(255) PRIMARY KEY,
+  id INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(255),
-  id_curso VARCHAR(255),
+  id_curso INT(255),
   FOREIGN KEY (id_curso) REFERENCES curso(id)
 );
 
-CREATE TABLE tema (
-  id VARCHAR(255) PRIMARY KEY,
-  titulo VARCHAR(255),
-  id_materia VARCHAR(255),
+CREATE TABLE nota (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nota REAL,
+  indicador VARCHAR(255),
+  campo VARCHAR(50),
+  id_materia INT,
   FOREIGN KEY (id_materia) REFERENCES materia(id)
 );
 
@@ -47,17 +49,9 @@ CREATE TABLE calificacion (
   nota_decidir REAL,
   nota_autoevaluacion REAL,
   id_materia VARCHAR(255),
-  id_usuario VARCHAR(255),
+  id_estudiante VARCHAR(255),
   FOREIGN KEY (id_materia) REFERENCES materia(id),
-  FOREIGN KEY (id_usuario) REFERENCES usuario(id)
-);
-
-CREATE TABLE nota (
-  id VARCHAR(255) PRIMARY KEY,
-  nota REAL,
-  indicador VARCHAR(255),
-  id_calificacion VARCHAR(255),
-  FOREIGN KEY (id_calificacion) REFERENCES calificacion(id)
+  FOREIGN KEY (id_estudiante) REFERENCES usuario(id)
 );
 
 CREATE TABLE asistencia (
@@ -66,4 +60,18 @@ CREATE TABLE asistencia (
   fecha DATE,
   id_calificacion VARCHAR(255),
   FOREIGN KEY (id_calificacion) REFERENCES calificacion(id)
+);
+
+CREATE TABLE materia (
+  id VARCHAR(255) PRIMARY KEY,
+  nombre VARCHAR(255),
+  id_curso VARCHAR(255),
+  FOREIGN KEY (id_curso) REFERENCES curso(id)
+);
+
+CREATE TABLE tema (
+  id VARCHAR(255) PRIMARY KEY,
+  titulo VARCHAR(255),
+  id_materia VARCHAR(255),
+  FOREIGN KEY (id_materia) REFERENCES materia(id)
 );

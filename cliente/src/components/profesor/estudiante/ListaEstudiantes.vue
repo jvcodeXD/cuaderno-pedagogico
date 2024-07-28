@@ -7,7 +7,7 @@
           <th scope="col">Nombre Completo</th>
           <th scope="col">CI</th>
           <th scope="col">Edad</th>
-          <th scope="col">Nota</th>
+          <th scope="col">Curso</th>
           <th scope="col">Opciones</th>
         </tr>
       </thead>
@@ -17,7 +17,7 @@
           <td>{{ data.nombre }}</td>
           <td>{{ data.ci }}</td>
           <td>{{ obtenerEdad(new Date(data.fecha_nacimiento)) }}</td>
-          <td>Nota</td>
+          <td>{{ cursoNombre(data) }}</td>
           <td>
             <router-link
               :to="{ path: `/profesor/perfil-estudiante/${data.id}` }"
@@ -57,13 +57,22 @@ export default {
 
       return edad
     },
+    cursoNombre(dato) {
+      return `${dato.grado} ${dato.paralelo}`
+    },
     async obtenerEstudiantes() {
       await this.$axios
-        .get('/profesor/estudiantes')
+        .get(`/profesor/estudiantes/lista/${this.id_profesor}`)
         .then((res) => (this.estudiantes = res.data))
         .catch((err) => {
           console.log(err)
         })
+    },
+  },
+  computed: {
+    id_profesor() {
+      const usuario = JSON.parse(localStorage.getItem('usuario'))
+      return Number(usuario.id)
     },
   },
   async mounted() {
