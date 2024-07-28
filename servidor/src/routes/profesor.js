@@ -9,5 +9,6 @@ router.get('/estudiantes/:id', usuarioController.obtenerUsuario)
 router.post('/estudiantes', usuarioController.crearUsuario)
 router.put('/estudiantes/:id', usuarioController.actualizarUsuario)
 router.delete('/estudiantes/:id', usuarioController.eliminarUsuario)
+router.get('/cursos/:id', profesorController.obtenerCursos)
 
 module.exports = router

@@ -26,7 +26,12 @@ const authController = {
       const token = jwt.sign(payload, secretKey, {
         expiresIn: '1h',
       })
-      const usuarioAutenticado = { user: usuario.user, token, rol: usuario.rol }
+      const usuarioAutenticado = {
+        id: usuario.id,
+        user: usuario.user,
+        token,
+        rol: usuario.rol,
+      }
 
       res.status(200).json(usuarioAutenticado)
     } catch (error) {

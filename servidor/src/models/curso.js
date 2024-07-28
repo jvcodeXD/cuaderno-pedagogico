@@ -18,6 +18,12 @@ const curso = {
   eliminarCurso: async (id) => {
     return await pool.query('delete from curso where id = ?', [id])
   },
+  obtenerCursosProfesor: async (id) => {
+    return await pool.query(
+      'select distinct c.id, c.grado, c.paralelo from curso c, usuario p where c.id_profesor = ? order by c.grado, c.paralelo',
+      [id]
+    )
+  },
 }
 
 module.exports = curso

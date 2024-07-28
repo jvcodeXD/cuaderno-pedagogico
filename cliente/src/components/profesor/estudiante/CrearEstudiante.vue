@@ -4,15 +4,20 @@
       type="button"
       class="btn btn-success"
       data-bs-toggle="modal"
-      data-bs-target="#crearProfesor"
+      data-bs-target="#crearEstudiante"
     >
-      Agregar profesor
+      Agregar estudiante
     </button>
-    <div class="modal fade" id="crearProfesor" tabindex="-1" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="crearEstudiante"
+      tabindex="-1"
+      aria-hidden="true"
+    >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5">Crear profesor</h1>
+            <h1 class="modal-title fs-5">Crear estudiante</h1>
             <button
               type="button"
               class="btn-close"
@@ -28,7 +33,7 @@
                 </label>
                 <input
                   type="text"
-                  v-model="profesor.nombre"
+                  v-model="estudiante.nombre"
                   class="form-control"
                   id="nombre"
                   placeholder="Ingrese nombre completo"
@@ -40,7 +45,7 @@
                     <label for="ci" class="col-form-label"> CI </label>
                     <input
                       type="text"
-                      v-model="profesor.ci"
+                      v-model="estudiante.ci"
                       class="form-control"
                       id="ci"
                       placeholder="Ingrese CI"
@@ -52,7 +57,7 @@
                     </label>
                     <input
                       type="text"
-                      v-model="profesor.telefono"
+                      v-model="estudiante.telefono"
                       class="form-control"
                       id="telefono"
                       placeholder="Ingrese telefono"
@@ -66,7 +71,7 @@
                 </label>
                 <input
                   type="text"
-                  v-model="profesor.direccion"
+                  v-model="estudiante.direccion"
                   class="form-control"
                   id="direccion"
                   placeholder="Ingrese direccion"
@@ -80,23 +85,29 @@
                     </label>
                     <input
                       type="date"
-                      v-model="profesor.fecha_nacimiento"
+                      v-model="estudiante.fecha_nacimiento"
                       class="form-control"
                       id="fecha_nacimiento"
                     />
                   </div>
                   <div class="col-6">
-                    <label for="rol" class="col-form-label"> Rol </label>
+                    <label for="id_curso" class="col-form-label">
+                      Cursos
+                    </label>
                     <select
-                      v-model="profesor.rol"
+                      v-model="estudiante.id_curso"
                       class="form-control"
-                      id="rol"
+                      id="id_curso"
                     >
                       <option value="" disabled selected>
-                        Selecciona un rol
+                        Selecciona un curso
                       </option>
-                      <option v-for="role in roles" :key="role" :value="role">
-                        {{ role }}
+                      <option
+                        v-for="(curso, index) in cursos"
+                        :key="index"
+                        :value="curso.id"
+                      >
+                        {{ cursoNombre(curso) }}
                       </option>
                     </select>
                   </div>
@@ -105,13 +116,15 @@
               <div class="mb-3">
                 <div class="row">
                   <div class="col-6">
-                    <label for="user" class="col-form-label"> Profesor </label>
+                    <label for="user" class="col-form-label">
+                      Estudiante
+                    </label>
                     <input
                       type="text"
-                      v-model="profesor.user"
+                      v-model="estudiante.user"
                       class="form-control"
                       id="user"
-                      placeholder="Ingrese profesor"
+                      placeholder="Ingrese estudiante"
                     />
                   </div>
                   <div class="col-6">
@@ -121,7 +134,7 @@
                     <div class="input-group">
                       <input
                         :type="mostrarContrasena ? 'text' : 'password'"
-                        v-model="profesor.pass"
+                        v-model="estudiante.pass"
                         class="form-control"
                         id="pass"
                         placeholder="Ingrese contraseña"
@@ -153,7 +166,7 @@
             <button
               type="button"
               class="btn btn-primary"
-              v-on:click="crearProfesor"
+              v-on:click="crearEstudiante"
             >
               Guardar
             </button>
@@ -165,35 +178,57 @@
 </template>
 <script>
 export default {
-  name: 'CrearProfesor',
+  name: 'CrearEstudiante',
   data() {
     return {
-      profesor: {
+      estudiante: {
         nombre: null,
         ci: null,
         telefono: null,
         direccion: null,
         fecha_nacimiento: null,
-        rol: '',
+        rol: 'Estudiante',
         user: null,
         pass: null,
+        id_curso: '',
       },
-      roles: ['Profesor'],
+      cursos: [],
       mostrarContrasena: false,
     }
   },
   methods: {
-    async crearProfesor() {
+    cursoNombre(curso) {
+      return `${curso.grado} ${curso.paralelo}`
+    },
+    async crearEstudiante() {
       await this.$axios
-        .post('director/profesores', this.profesor)
+        .post('usuarios', this.estudiante)
         .then(() => {
           window.location.reload()
+        })
+        .catch((err) => console.log(err))
+    },
+    async obtenerCursos() {
+      await this.$axios
+        .get(`/profesor/cursos/${this.id_profesor}`)
+        .then((res) => {
+          this.cursos = res.data
         })
         .catch((err) => console.log(err))
     },
     togglePassword() {
       this.mostrarContrasena = !this.mostrarContrasena
     },
+  },
+  computed: {
+    id_profesor() {
+      const usuario = JSON.parse(localStorage.getItem('usuario'))
+      return Number(usuario.id)
+    },
+  },
+  async beforeMount() {
+    await this.obtenerCursos()
+    console.log(this.id_profesor)
   },
 }
 </script>

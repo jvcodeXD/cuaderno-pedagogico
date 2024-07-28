@@ -22,6 +22,12 @@ const usuario = {
   obtenerRoles: async (roles) => {
     return await pool.query('select * from usuario where rol in (?)', [roles])
   },
+  obtenerEstudiantes: async (rol) => {
+    return await pool.query(
+      'select distinct u.id, nombre, ci, direccion, fecha_nacimiento, telefono, id_curso, c.id, grado, paralelo  from usuario u, curso c where rol = ?',
+      [rol]
+    )
+  },
 }
 
 module.exports = usuario
