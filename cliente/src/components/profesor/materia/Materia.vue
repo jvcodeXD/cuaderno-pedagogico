@@ -31,67 +31,33 @@
         data-bs-parent="#accordionExample"
       >
         <div class="accordion-body">
+          <CrearIndicador :id_materia="id_materia" />
           <div class="row row-cols-1 row-cols-md-3 g-1">
-            <div class="col">
-              <div class="card border-primary mb-3" style="max-width: 18rem">
-                <div class="card-header">Ser</div>
-                <div class="card-body text-dark">
-                  <h5 class="card-title">Primary card title</h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card border-secondary mb-3" style="max-width: 18rem">
-                <div class="card-header">Saber</div>
-                <div class="card-body text-dark">
-                  <h5 class="card-title">Secondary card title</h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card border-info mb-3" style="max-width: 18rem">
-                <div class="card-header">Hacer</div>
-                <div class="card-body text-dark">
-                  <h5 class="card-title">Info card title</h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card border-dark mb-3" style="max-width: 18rem">
-                <div class="card-header">Decidir</div>
-                <div class="card-body text-dark">
-                  <h5 class="card-title">Dark card title</h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card border-warning mb-3" style="max-width: 18rem">
-                <div class="card-header">Autoevaluacion</div>
-                <div class="card-body text-dark">
-                  <h5 class="card-title">Warning card title</h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                </div>
-              </div>
-            </div>
+            <indicadores
+              :id_materia="id_materia"
+              campo="Ser"
+              descripcion="Evaluación del comportamiento y actitudes del estudiante."
+            />
+            <indicadores
+              :id_materia="id_materia"
+              campo="Saber"
+              descripcion="Evaluación del conocimiento teórico adquirido."
+            />
+            <indicadores
+              :id_materia="id_materia"
+              campo="Hacer"
+              descripcion="Evaluación de las habilidades prácticas y aplicación del conocimiento."
+            />
+            <indicadores
+              :id_materia="id_materia"
+              campo="Decidir"
+              descripcion="Evaluación de la capacidad de tomar decisiones y resolver problemas."
+            />
+            <indicadores
+              :id_materia="id_materia"
+              campo="Autoevaluacion"
+              descripcion="Evaluación de la capacidad del estudiante para reflexionar sobre su propio aprendizaje."
+            />
           </div>
         </div>
       </div>
@@ -99,6 +65,8 @@
   </div>
 </template>
 <script>
+import Indicadores from './indicador/Indicadores.vue'
+import CrearIndicador from './indicador/CrearIndicador.vue'
 export default {
   name: 'Materia',
   props: {
@@ -107,6 +75,7 @@ export default {
       required: true,
     },
   },
+  components: { Indicadores, CrearIndicador },
   data() {
     return {
       materia: null,
@@ -138,7 +107,6 @@ export default {
   },
   async beforeMount() {
     await this.obtenerMateria()
-    console.log(this.materia)
   },
 }
 </script>

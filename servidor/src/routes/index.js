@@ -10,6 +10,8 @@ const profesorRouter = require('./profesor')
 const cursoRouter = require('./curso')
 const materiaRouter = require('./materia')
 
+const notaRouter = require('./nota')
+
 const router = express.Router()
 
 router.get('/estado', (req, res) => {
@@ -24,5 +26,7 @@ router.use('/profesor', profesorRouter)
 // router.use('/estudiante', estudianteRouter)
 router.use('/cursos', cursoRouter)
 router.use('/materias', materiaRouter)
+
+router.use('/notas', notaRouter)
 
 module.exports = router

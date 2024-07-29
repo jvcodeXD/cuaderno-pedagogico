@@ -33,7 +33,6 @@ CREATE TABLE materia (
 
 CREATE TABLE nota (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  nota REAL,
   indicador VARCHAR(255),
   campo VARCHAR(50),
   id_materia INT,
@@ -41,16 +40,11 @@ CREATE TABLE nota (
 );
 
 CREATE TABLE calificacion (
-  id VARCHAR(255) PRIMARY KEY,
-  nota_total REAL,
-  nota_ser REAL,
-  nota_saber REAL,
-  nota_hacer REAL,
-  nota_decidir REAL,
-  nota_autoevaluacion REAL,
-  id_materia VARCHAR(255),
-  id_estudiante VARCHAR(255),
-  FOREIGN KEY (id_materia) REFERENCES materia(id),
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nota REAL,
+  id_nota INT,
+  id_estudiante INT,
+  FOREIGN KEY (id_nota) REFERENCES nota(id),
   FOREIGN KEY (id_estudiante) REFERENCES usuario(id)
 );
 

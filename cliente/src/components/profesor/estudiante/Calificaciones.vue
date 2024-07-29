@@ -1,79 +1,46 @@
 <template>
   <div>
-    <p class="d-inline-flex gap-1">
-      <button
-        class="btn btn-primary"
-        data-bs-toggle="collapse"
-        href="#serCollapse"
-        role="button"
-        aria-expanded="false"
-        aria-controls="serCollapse"
-      >
-        Ser
-      </button>
-      <button
-        class="btn btn-primary"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#saberCollapse"
-        aria-expanded="false"
-        aria-controls="saberCollapse"
-      >
-        Saber
-      </button>
-      <button
-        class="btn btn-primary"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#hacerCollapse"
-        aria-expanded="false"
-        aria-controls="hacerCollapse"
-      >
-        Hacer
-      </button>
-
-      <button
-        class="btn btn-primary"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#decidirCollapse"
-        aria-expanded="false"
-        aria-controls="decidirCollapse"
-      >
-        Decidir
-      </button>
-
-      <button
-        class="btn btn-primary"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#autoCollapse"
-        aria-expanded="false"
-        aria-controls="autoCollapse"
-      >
-        Autoevaluacion
-      </button>
-    </p>
+    <div class="row">Calificaciones</div>
     <div class="row">
-      <div class="collapse multi-collapse" id="serCollapse">
-        <div class="card card-body">Ser</div>
-      </div>
-      <div class="collapse multi-collapse" id="saberCollapse">
-        <div class="card card-body">Saber</div>
-      </div>
-      <div class="collapse multi-collapse" id="hacerCollapse">
-        <div class="card card-body">Hacer</div>
-      </div>
-      <div class="collapse multi-collapse" id="decidirCollapse">
-        <div class="card card-body">Decidir</div>
-      </div>
-      <div class="collapse multi-collapse" id="autoCollapse">
-        <div class="card card-body">Autoevaluacion</div>
-      </div>
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Materia</th>
+            <th scope="col" class="narrow-column">Ser</th>
+            <th scope="col" class="narrow-column">Saber</th>
+            <th scope="col" class="narrow-column">Hacer</th>
+            <th scope="col" class="narrow-column">Decidir</th>
+            <th scope="col" class="narrow-column">Auto evaluacion</th>
+            <th scope="col" class="narrow-column">Nota final</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divide">
+          <tr v-for="(x, index) in agruparMaterias()" :key="index">
+            <td>{{ index + 1 }}</td>
+            <td>{{ x.nombre }}</td>
+            <Nota campo="Ser" :id_materia="x.id_materia" />
+            <Nota campo="Saber" :id_materia="x.id_materia" />
+            <Nota campo="Hacer" :id_materia="x.id_materia" />
+            <Nota campo="Decidir" :id_materia="x.id_materia" />
+            <Nota campo="Autoevaluacion" :id_materia="x.id_materia" />
+            <td>
+              <NotaFinal :id_materia="x.id_materia" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
+<style>
+.narrow-column {
+  width: 70px;
+}
+</style>
 <script>
+import Nota from './Notas.vue'
+import NotaFinal from './NotaFinal.vue'
 export default {
   name: 'Calificaciones',
   props: {
@@ -81,6 +48,64 @@ export default {
       type: Number,
       required: true,
     },
+  },
+  components: { Nota, NotaFinal },
+  data() {
+    return {
+      notas: [],
+      notaSer: 0,
+      notaSaber: 0,
+      notaHacer: 0,
+      notaDecidir: 0,
+      notaAutoevaluacion: 0,
+      notaFinal: 0,
+    }
+  },
+  methods: {
+    actualizarNota(tipo, valor) {
+      if (tipo === 'Ser') {
+        this.notaSer = valor
+      }
+      if (tipo === 'Saber') {
+        this.notaSaber = valor
+      }
+      if (tipo === 'Hacer') {
+        this.notaHacer = valor
+      }
+      if (tipo === 'Decidir') {
+        this.notaDecidir = valor
+      }
+      if (tipo === 'Autoevaluacion') {
+        this.notaAutoevaluacion = valor
+      }
+    },
+    agruparMaterias() {
+      const agrupados = this.notas.reduce((acc, item) => {
+        if (
+          !acc.some(
+            (existingItem) =>
+              existingItem.nombre === item.nombre &&
+              existingItem.id_materia === item.id_materia
+          )
+        ) {
+          acc.push({ nombre: item.nombre, id_materia: item.id_materia })
+        }
+        return acc
+      }, [])
+      return agrupados
+    },
+    async obtenerNotas() {
+      await this.$axios
+        .get(`/profesor/notas/estudiante/${this.id}`)
+        .then((res) => {
+          this.notas = res.data
+          this.actualizarNota()
+        })
+        .catch((err) => console.log(err))
+    },
+  },
+  async beforeMount() {
+    await this.obtenerNotas()
   },
   mounted() {},
 }

@@ -3,9 +3,11 @@ import Navigation from './views/Navigation.vue'
 </script>
 
 <template>
-  <Navigation />
-  <div id="contenedor">
-    <router-view />
+  <div>
+    <Navigation />
+    <div id="contenedor">
+      <router-view />
+    </div>
   </div>
 </template>
 

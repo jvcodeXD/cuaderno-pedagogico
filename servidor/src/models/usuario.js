@@ -34,6 +34,12 @@ const usuario = {
       [id]
     )
   },
+  obtenerEstudiantesMateria: async (id_materia) => {
+    return await pool.query(
+      'select distinct u.id as id_estudiante, u.nombre, c.id as id_curso, c.grado, c.paralelo, m.id as id_materia, m.nombre as materia  from usuario u, curso c, materia m where u.id_curso = c.id and c.id = m.id_curso and m.id = ?',
+      [id_materia]
+    )
+  },
 }
 
 module.exports = usuario
