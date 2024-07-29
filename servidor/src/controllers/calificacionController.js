@@ -3,9 +3,24 @@ const calificacionModel = require('../models/calificacion')
 const calificacionController = {
   obtenerCalificaciones: async (req, res) => {
     try {
-      const { id } = req.params
-      const calificacions = await calificacionModel.obtenerCalificaciones(id)
-      res.json(calificacions)
+      const { id, id_estudiante } = req.params
+      const calificaciones = await calificacionModel.obtenerCalificaciones(
+        id,
+        id_estudiante
+      )
+      res.json(calificaciones)
+    } catch (error) {
+      res.status(500).json({ message: error.message })
+    }
+  },
+  obtenerCalificacionNotas: async (req, res) => {
+    try {
+      const { id_materia, id_estudiante } = req.params
+      const calificaciones = await calificacionModel.obtenerCalificacionesNota(
+        id_estudiante,
+        id_materia
+      )
+      res.json(calificaciones)
     } catch (error) {
       res.status(500).json({ message: error.message })
     }

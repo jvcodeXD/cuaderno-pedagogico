@@ -19,11 +19,27 @@
           <tr v-for="(x, index) in agruparMaterias()" :key="index">
             <td>{{ index + 1 }}</td>
             <td>{{ x.nombre }}</td>
-            <Nota campo="Ser" :id_materia="x.id_materia" />
-            <Nota campo="Saber" :id_materia="x.id_materia" />
-            <Nota campo="Hacer" :id_materia="x.id_materia" />
-            <Nota campo="Decidir" :id_materia="x.id_materia" />
-            <Nota campo="Autoevaluacion" :id_materia="x.id_materia" />
+            <Nota campo="Ser" :id_materia="x.id_materia" :id_estudiante="id" />
+            <Nota
+              campo="Saber"
+              :id_materia="x.id_materia"
+              :id_estudiante="id"
+            />
+            <Nota
+              campo="Hacer"
+              :id_materia="x.id_materia"
+              :id_estudiante="id"
+            />
+            <Nota
+              campo="Decidir"
+              :id_materia="x.id_materia"
+              :id_estudiante="id"
+            />
+            <Nota
+              campo="Autoevaluacion"
+              :id_materia="x.id_materia"
+              :id_estudiante="id"
+            />
             <td>
               <NotaFinal :id_materia="x.id_materia" />
             </td>

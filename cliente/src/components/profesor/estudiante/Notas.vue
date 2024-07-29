@@ -41,8 +41,8 @@
               >
                 <Nota
                   :id="nota.id"
-                  :nota="nota"
-                  @nota-actualizada="obtenerNota()"
+                  :id_estudiante="id_estudiante"
+                  @nota-actualizada="obtenerCalificaciones()"
                 />
               </li>
             </div>
@@ -80,6 +80,10 @@ export default {
       type: Number,
       required: true,
     },
+    id_estudiante: {
+      type: Number,
+      required: true,
+    },
     campo: {
       type: String,
       required: true,
@@ -89,11 +93,22 @@ export default {
   data() {
     return {
       notas: [],
+      calificaciones: [],
       nota: 0,
       modalName: `modal${this.id_materia}${this.campo}`,
     }
   },
   methods: {
+    calcularPromedio() {
+      if (this.calificaciones.length === 0) this.nota = 0
+      else {
+        const suma = this.calificaciones.reduce(
+          (acc, item) => acc + item.nota,
+          0
+        )
+        this.nota = suma / this.calificaciones.length
+      }
+    },
     calcularNota() {
       if (this.notas.length > 0) {
         const totalNotas = this.notas.reduce((acc, item) => acc + item.nota, 0)
@@ -102,21 +117,29 @@ export default {
       } else {
         this.nota = 0
       }
-      this.$emit('nota-actualizada', this.nota)
+      // this.$emit('nota-actualizada', this.nota)
+    },
+    async obtenerCalificaciones() {
+      await this.$axios
+        .get(
+          `/profesor/calificacion/notas/${this.id_materia}/${this.id_estudiante}`
+        )
+        .then((res) => (this.calificaciones = res.data))
+        .catch((err) => console.log(err))
+      // this.calcularPromedio()
     },
     async obtenerNota() {
       await this.$axios
         .get(`/profesor/notas/materia/${this.id_materia}/${this.campo}`)
         .then((res) => {
           this.notas = res.data
-          console.log(this.notas)
-          this.calcularNota()
         })
         .catch((err) => console.log(err))
     },
   },
   async beforeMount() {
     await this.obtenerNota()
+    await this.obtenerCalificaciones()
   },
 }
 </script>

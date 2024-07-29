@@ -1,10 +1,16 @@
 const pool = require('../config/database')
 
 const calificacion = {
-  obtenerCalificaciones: async (id_nota) => {
+  obtenerCalificaciones: async (id_nota, id_estudiante) => {
     return await pool.query(
-      'select c.nota, c.id, c.id_nota, c.id_estudiante from calificacion c, nota n where c.id_nota = n.id and n.id = ?',
-      [id_nota]
+      'select c.nota, c.id, c.id_nota, c.id_estudiante, n.indicador from calificacion c, nota n where c.id_nota = n.id and n.id = ? and c.id_estudiante = ?',
+      [id_nota, id_estudiante]
+    )
+  },
+  obtenerCalificacionesNota: async (id_estudiante, id_materia) => {
+    return await pool.query(
+      'select c.nota, c.id, n.indicador, n.campo from calificacion c, nota n, materia m where c.id_nota = n.id and c.id_estudiante = ? and n.id_materia = m.id and m.id = ?',
+      [id_estudiante, id_materia]
     )
   },
   obtenerCalificacion: async (id) => {

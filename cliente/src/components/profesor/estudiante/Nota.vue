@@ -1,9 +1,9 @@
 <template>
   <div>
-    {{ nota.indicador }}
+    {{ calificacion.indicador }}
     <span class="badge rounded-pill">
       <input
-        v-model="valor"
+        v-model="calificacion.nota"
         type="text"
         class="form-control narrow-column"
         placeholder="0"
@@ -21,21 +21,35 @@ export default {
       type: Number,
       required: true,
     },
-    nota: {
-      type: Object,
+    id_estudiante: {
+      type: Number,
       required: true,
     },
   },
   data() {
     return {
-      valor: null,
+      calificacion: {
+        id_estudiante: this.id_estudiante,
+        id_nota: this.id,
+        nota: 0,
+      },
     }
   },
   methods: {
-    async actualizarNota() {
-      this.nota.nota = this.valor !== '' ? Number(this.valor) : 0
+    async obtenerCalificacion() {
       await this.$axios
-        .put(`/profesor/notas/${this.id}`, this.nota)
+        .get(`/profesor/calificacion/nota/${this.id}/${this.id_estudiante}`)
+        .then((res) => (this.calificacion = res.data[0]))
+        .catch((err) => console.log(err))
+    },
+    async actualizarNota() {
+      const { id_nota, id_estudiante, nota } = this.calificacion
+      const nuevaCalificacion = { id_nota, id_estudiante, nota }
+      await this.$axios
+        .put(
+          `/profesor/calificacion/${this.calificacion.id}`,
+          nuevaCalificacion
+        )
         .then(() => {
           this.$emit('nota-actualizada')
         })
@@ -45,8 +59,8 @@ export default {
   created() {
     this.debouncedActualizarNota = debounce(this.actualizarNota, 500)
   },
-  beforeMount() {
-    this.valor = this.nota.nota
+  async beforeMount() {
+    await this.obtenerCalificacion()
   },
 }
 </script>

@@ -4,6 +4,7 @@ const usuarioController = require('../controllers/usuarioController')
 
 const materiasRutas = require('./materia')
 const notasRutas = require('./nota')
+const calificacionRutas = require('./calificacion')
 
 const router = express.Router()
 
@@ -16,5 +17,6 @@ router.get('/cursos/:id', profesorController.obtenerCursos)
 
 router.use('/materias', materiasRutas)
 router.use('/notas', notasRutas)
+router.use('/calificacion', calificacionRutas)
 
 module.exports = router
