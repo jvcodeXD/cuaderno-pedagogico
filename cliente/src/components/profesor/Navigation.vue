@@ -5,6 +5,11 @@
         Estudiantes
       </router-link>
     </li>
+    <li class="nav-item">
+      <router-link to="/profesor/materias" class="nav-link">
+        Materias
+      </router-link>
+    </li>
   </ul>
 </template>
 <script>

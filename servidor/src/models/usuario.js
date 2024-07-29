@@ -22,10 +22,22 @@ const usuario = {
   obtenerRoles: async (roles) => {
     return await pool.query('select * from usuario where rol in (?)', [roles])
   },
-  obtenerEstudiantes: async (rol) => {
+  obtenerEstudiantes: async (rol, id) => {
     return await pool.query(
-      'select distinct u.id, nombre, ci, direccion, fecha_nacimiento, telefono, id_curso, c.id, grado, paralelo  from usuario u, curso c where rol = ?',
-      [rol]
+      'select distinct u.id, u.nombre, u.ci, u.direccion, u.fecha_nacimiento, u.id_curso, grado, paralelo  from usuario u, curso c where u.rol = ? and u.id_curso = c.id and c.id_profesor = ?',
+      [rol, id]
+    )
+  },
+  obtenerEstudiante: async (id) => {
+    return await pool.query(
+      'select u.id, u.nombre, u.ci, u.direccion, u.fecha_nacimiento, u.id_curso, u.user, u.telefono, grado, paralelo from usuario u, curso c where u.id = ? and u.id_curso = c.id',
+      [id]
+    )
+  },
+  obtenerEstudiantesMateria: async (id_materia) => {
+    return await pool.query(
+      'select distinct u.id as id_estudiante, u.nombre, c.id as id_curso, c.grado, c.paralelo, m.id as id_materia, m.nombre as materia  from usuario u, curso c, materia m where u.id_curso = c.id and c.id = m.id_curso and m.id = ?',
+      [id_materia]
     )
   },
 }

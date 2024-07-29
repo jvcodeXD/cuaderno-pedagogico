@@ -22,7 +22,10 @@
             </p>
           </div>
           <div class="col-auto">
-            <p class="lead"><strong>Curso: </strong> Curso</p>
+            <p class="lead">
+              <strong>Curso: </strong>
+              {{ `${estudiante?.grado} ${estudiante?.paralelo}` }}
+            </p>
           </div>
         </div>
         <div class="row d-flex justify-content-between">
@@ -43,14 +46,25 @@
       <div class="card-body">Apoderados</div>
       <div class="card-footer">
         <div class="row d-flex justify-content-end">
-          <div class="col-auto">Editar</div>
-          <div class="col-auto">Eliminar</div>
+          <div class="col-auto">
+            <EditarEstudiante :id="id" />
+          </div>
+          <div class="col-auto">
+            <button
+              v-on:click="eliminarEstudiante()"
+              type="button"
+              class="btn btn-outline-danger"
+            >
+              <i class="fa-solid fa-trash"></i> Eliminar
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import EditarEstudiante from './EditarEstudiante.vue'
 export default {
   name: 'PerfilEstudiante',
   data() {
@@ -64,9 +78,18 @@ export default {
       required: true,
     },
   },
+  components: { EditarEstudiante },
   methods: {
     formatoFecha(fecha) {
       return fecha.toLocaleDateString()
+    },
+    async eliminarEstudiante() {
+      await this.$axios
+        .delete(`/usuarios/${this.id}`)
+        .then(() => {
+          this.$router.go(-1)
+        })
+        .catch((err) => console.log(err))
     },
     obtenerEdad(fecha) {
       const fechaNac = new Date(fecha)
@@ -86,10 +109,9 @@ export default {
   },
   async beforeMount() {
     await this.$axios
-      .get(`/usuarios/${this.id}`)
+      .get(`/profesor/estudiante/${this.id}`)
       .then((res) => {
         this.estudiante = res.data[0]
-        console.log(this.estudiante)
       })
       .catch((err) => console.log(err))
   },

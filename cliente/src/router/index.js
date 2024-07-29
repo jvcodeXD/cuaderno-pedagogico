@@ -10,6 +10,7 @@ import Profesores from '@/components/director/profesor/Profesores.vue'
 import Curso from '@/components/director/curso/Curso.vue'
 import Estudiantes from '@/components/profesor/estudiante/Estudiantes.vue'
 import DatosEstudiante from '@/components/profesor/estudiante/DatosEstudiante.vue'
+import Materias from '@/components/profesor/materia/Materias.vue'
 
 const routes = [
   {
@@ -83,6 +84,11 @@ const routes = [
       {
         path: 'perfil-estudiante/:id',
         component: DatosEstudiante,
+        meta: { roles: ['Profesor'] },
+      },
+      {
+        path: 'materias',
+        component: Materias,
         meta: { roles: ['Profesor'] },
       },
     ],
