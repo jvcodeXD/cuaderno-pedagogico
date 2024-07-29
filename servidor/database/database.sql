@@ -47,25 +47,3 @@ CREATE TABLE calificacion (
   FOREIGN KEY (id_nota) REFERENCES nota(id),
   FOREIGN KEY (id_estudiante) REFERENCES usuario(id)
 );
-
-CREATE TABLE asistencia (
-  id VARCHAR(255) PRIMARY KEY,
-  presente VARCHAR(255),
-  fecha DATE,
-  id_calificacion VARCHAR(255),
-  FOREIGN KEY (id_calificacion) REFERENCES calificacion(id)
-);
-
-CREATE TABLE materia (
-  id VARCHAR(255) PRIMARY KEY,
-  nombre VARCHAR(255),
-  id_curso VARCHAR(255),
-  FOREIGN KEY (id_curso) REFERENCES curso(id)
-);
-
-CREATE TABLE tema (
-  id VARCHAR(255) PRIMARY KEY,
-  titulo VARCHAR(255),
-  id_materia VARCHAR(255),
-  FOREIGN KEY (id_materia) REFERENCES materia(id)
-);

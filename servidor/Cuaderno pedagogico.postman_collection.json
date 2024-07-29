@@ -1,0 +1,681 @@
+{
+	"info": {
+		"_postman_id": "4ad6508b-a6e7-48c9-be01-fe62f8866b5a",
+		"name": "Cuaderno pedagogico",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21399091"
+	},
+	"item": [
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "obtenerUsuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crearUsuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"{{$randomFirstName}}\",\r\n    \"ci\": {{randomCI}},\r\n    \"telefono\": {{randomTelefono}},\r\n    \"direccion\": \"{{$randomStreetAddress}}\",\r\n    \"fecha_nacimiento\": \"{{randomFechaNacimiento}}\",\r\n    \"rol\": \"Estudiante\",\r\n    \"user\": \"est3\",\r\n    \"pass\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obtenerUsuario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/usuarios/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizarUsuario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"{{$randomFirstName}}\",\r\n    \"ci\": {{randomCI}},\r\n    \"telefono\": {{randomTelefono}},\r\n    \"direccion\": \"{{$randomStreetAddress}}\",\r\n    \"fecha_nacimiento\": \"{{randomFechaNacimiento}}\",\r\n    \"rol\": \"Administrador\",\r\n    \"user\": \"admin\",\r\n    \"pass\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/usuarios/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminarUsuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/usuarios/20",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"usuarios",
+								"20"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": \"wanda\",\r\n    \"pass\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Director",
+			"item": [
+				{
+					"name": "Curso",
+					"item": [
+						{
+							"name": "crearCurso",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"grado\": \"{{randomNivelVencido}}\",\r\n    \"paralelo\": \"A\",\r\n    \"id_profesor\": 11\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/api/cursos",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"cursos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizarCurso",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"grado\": \"{{randomNivelVencido}}\",\r\n    \"paralelo\": \"B\",\r\n    \"id_profesor\": 11\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/api/cursos/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"cursos",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "obtenerCursos",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"grado\": \"{{randomNivelVencido}}\",\r\n    \"paralelo\": \"A\",\r\n    \"id_profesor\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/api/cursos",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"cursos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "obtenerCurso",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"grado\": \"{{randomNivelVencido}}\",\r\n    \"paralelo\": \"A\",\r\n    \"id_profesor\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/api/cursos/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"cursos",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminarCurso",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"grado\": \"{{randomNivelVencido}}\",\r\n    \"paralelo\": \"A\",\r\n    \"id_profesor\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/api/cursos/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"cursos",
+										"3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "obtenerProfesores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/director/profesores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"director",
+								"profesores"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profesor",
+			"item": [
+				{
+					"name": "Materia",
+					"item": [
+						{
+							"name": "obtenerMaterias",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4000/api/profesor/materias/lista/10",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"profesor",
+										"materias",
+										"lista",
+										"10"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "crearMateria",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\": \"Educacion Fisica\",\r\n    \"id_curso\": 9\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/api/profesor/materias",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"profesor",
+										"materias"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminarMateria",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4000/api/profesor/materias/5",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"profesor",
+										"materias",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizarMateria",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\": \"Musica\",\r\n    \"id_curso\": 9\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/api/profesor/materias/8",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"profesor",
+										"materias",
+										"8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "obtenerMateria",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4000/api/profesor/materias/8",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"profesor",
+										"materias",
+										"8"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Nota",
+					"item": [
+						{
+							"name": "obtenerNotas",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "obtenerEstudiantes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/profesor/estudiantes/lista/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"profesor",
+								"estudiantes",
+								"lista",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obtenerCursos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/profesor/cursos/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"profesor",
+								"cursos",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Estudiante",
+			"item": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"const expedOptions = ['OR', 'LP', 'PT', 'CB', 'CH', 'SC', 'TJ', 'BN', 'PA', 'EXT'];\r",
+					"\r",
+					"const ciudadOptions = ['Oruro', 'La Paz', 'Cochabamba', 'Santa Cruz', 'Potosi', 'Sucre', 'Tarija', 'Trinidad', 'Cobija'];\r",
+					"\r",
+					"const sexoOptions = ['MASCULINO', 'FEMENINO'];\r",
+					"\r",
+					"const civilState = ['Soltero/a', 'Casado/a', 'Divorciado/a', 'Viudo/a', 'Union Libre']\r",
+					"\r",
+					"const grados = ['PRIMARIA', 'SECUNDARIA', 'LICENCIATURA', 'DOCTORADO', 'MAESTRIA', 'TECNICO SUPERIOR'];\r",
+					"\r",
+					"const nivelesVencidos = ['PRIMERO', 'SEGUNDO', 'TERCERO', 'CUARTO', 'QUINTO', 'SEXTO'];\r",
+					"\r",
+					"const carreras = ['INGENIERIA', 'MEDICINA', 'DERECHO', 'ECONOMIA', 'ARQUITECTURA'];\r",
+					"\r",
+					"const titulos = ['INGENIERO', 'MEDICO', 'ABOGADO', 'ECONOMISTA', 'ARQUITECTO'];\r",
+					"\r",
+					"const parentesco = ['PADRE/MADRE', 'HIJO/A', 'ESPOSO/A', 'SUEGRO/A', 'YERNO/NUERA', 'HERMANO/A', 'ABUELO/A', 'NIETO/A', 'CUÑADO/A', 'SOBRINO/A', 'TIO/A', 'PRIMO/A'];\r",
+					"\r",
+					"function getRandomNumber(dig) {\r",
+					"    return Math.floor(1 * Math.pow(10, dig) + Math.random() * 9 * Math.pow(10, dig));\r",
+					"}\r",
+					"\r",
+					"function getRandomYear(start, end) {\r",
+					"    return Math.floor(Math.random() * (end - start + 1)) + start;\r",
+					"}\r",
+					"\r",
+					"const localidades = [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 18, 20]\r",
+					"\r",
+					"function getPastDate() {\r",
+					"    const today = new Date();\r",
+					"    const pastDate = new Date(today.getFullYear() - 20, today.getMonth(), today.getDate());\r",
+					"    const yyyy = pastDate.getFullYear();\r",
+					"    const mm = String(pastDate.getMonth() + 1).padStart(2, '0');\r",
+					"    const dd = String(pastDate.getDate()).padStart(2, '0');\r",
+					"    return `${yyyy}-${mm}-${dd}`;\r",
+					"}\r",
+					"\r",
+					"// Expedicion\r",
+					"const randomExped = expedOptions[Math.floor(Math.random() * expedOptions.length)];\r",
+					"\r",
+					"// Telefono\r",
+					"const randomTelefono = 52 * 100000 + getRandomNumber(4);\r",
+					"\r",
+					"// Celular\r",
+					"const randomCelular = (Math.floor(Math.random() * 3) + 6) * 10000000 + getRandomNumber(6);\r",
+					"\r",
+					"// Ciudad\r",
+					"const randomCiudad = ciudadOptions[Math.floor(Math.random() * ciudadOptions.length)];\r",
+					"\r",
+					"// Sexo\r",
+					"const randomSexo = sexoOptions[Math.floor(Math.random() * sexoOptions.length)];\r",
+					"\r",
+					"// Fecha Nacimiento\r",
+					"const fechaNacimiento = getPastDate();\r",
+					"\r",
+					"// CI\r",
+					"const randomCi = getRandomNumber(7);\r",
+					"\r",
+					"// Estado civil\r",
+					"const randomEstadoCivil = civilState[Math.floor(Math.random() * civilState.length)];\r",
+					"\r",
+					"// Grado academico\r",
+					"const randomGradoAcademico = grados[Math.floor(Math.random() * grados.length)];\r",
+					"\r",
+					"// Nivel vencido\r",
+					"const randomNivelVencido = nivelesVencidos[Math.floor(Math.random() * nivelesVencidos.length)]\r",
+					"\r",
+					"// Codigo biometrico\r",
+					"const randomBiometrico = getRandomNumber(3);\r",
+					"\r",
+					"// Random Titulo Carrera\r",
+					"const randomTituloCarrera = Math.floor(Math.random() * carreras.length)\r",
+					"\r",
+					"// Carrera\r",
+					"const randomCarrera = randomGradoAcademico !== 'PRIMARIA' && randomGradoAcademico !== 'SECUNDARIA' ? carreras[randomTituloCarrera] : '';\r",
+					"\r",
+					"// Titulo\r",
+					"const randomTitulo = randomGradoAcademico !== 'PRIMARIA' && randomGradoAcademico !== 'SECUNDARIA' ? titulos[randomTituloCarrera] : '';\r",
+					"\r",
+					"// fk Localidad\r",
+					"const randomLocalidad = localidades[Math.floor(Math.random() * localidades.length)];\r",
+					"\r",
+					"// Año\r",
+					"const randomYear = getRandomYear(1990, 2010);\r",
+					"\r",
+					"// Parentesco\r",
+					"const randomParentesco = parentesco[Math.floor(Math.random() * parentesco.length)];\r",
+					"\r",
+					"pm.globals.set(\"randomExped\", randomExped);\r",
+					"pm.globals.set(\"randomSexo\", randomSexo);\r",
+					"pm.globals.set(\"randomCiudad\", randomCiudad);\r",
+					"pm.globals.set(\"randomTelefono\", randomTelefono);\r",
+					"pm.globals.set(\"randomCelular\", randomCelular);\r",
+					"pm.globals.set('randomFechaNacimiento', fechaNacimiento);\r",
+					"pm.globals.set(\"randomCI\", randomCi);\r",
+					"pm.globals.set(\"randomEstadoCivil\", randomEstadoCivil);\r",
+					"pm.globals.set(\"randomGradoAcademico\", randomGradoAcademico);\r",
+					"pm.globals.set(\"randomBiometrico\", randomBiometrico);\r",
+					"pm.globals.set(\"randomLocalidad\", randomLocalidad);\r",
+					"pm.globals.set(\"randomNivelVencido\", randomNivelVencido);\r",
+					"pm.globals.set(\"randomTitulo\", randomTitulo);\r",
+					"pm.globals.set(\"randomCarrera\", randomCarrera);\r",
+					"pm.globals.set(\"randomYear\", randomYear);\r",
+					"pm.globals.set(\"randomParentesco\", randomParentesco);"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
